@@ -3,7 +3,13 @@ guid: 5b68252a8bc9cb945bd8de592b168284
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Sprite: {instanceID: 0}
+  - CubeSprite: {instanceID: 0}
+  - ShipSprite: {fileID: 1541730020, guid: ea06da16459a74847924cdc7056beb16, type: 3}
+  - BallSprite: {instanceID: 0}
+  - UFOSprite: {fileID: 2118487716, guid: 35342674dfe26764fab74a8d58970d78, type: 3}
+  - WaveSprite: {fileID: -1753225349, guid: 69b8fc7226655d44e92b2f5f58fa5c1c, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

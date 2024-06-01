@@ -10,15 +10,6 @@ public class Movement : MonoBehaviour
     public SpeedsPlayer CurrentSpeeds;
     public Gamemodes CurrentGamemode;
 
-    // Начальные координаты игрового объекта
-    private Vector3 initialPosition;
-
-    // Ссылка на Tilemap
-    public Tilemap tilemap;
-
-    // Тайл, с которым нужно обрабатывать столкновения
-    public TileBase targetTile;
-
     float[] SpeedValues = { 8.6f, 10.4f, 12.96f, 15.6f, 19.27f };
 
     [System.NonSerialized]  public int[] screenHeightValues = { 11, 10, 8, 10, 10 };
@@ -30,7 +21,7 @@ public class Movement : MonoBehaviour
 
     private float currentAngle = 0f;
     private float targetAngle = 0f;
-    private float rotationSpeed = 180f;
+    private float rotationSpeed = 360f;
 
     public float jumpForce = 50f;
 
@@ -49,7 +40,6 @@ public class Movement : MonoBehaviour
     {
         //считывание состояния объекта
         rb = GetComponent<Rigidbody2D>();
-        initialPosition = transform.position;
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -127,6 +117,12 @@ public class Movement : MonoBehaviour
             case 2:
                 Gravity = gravity;
                 rb.gravityScale = Mathf.Abs(rb.gravityScale) * (int)gravity;
+
+                // Отражение спрайта по горизонтали
+                Vector3 currentScale = Sprite.GetComponent<SpriteRenderer>().transform.localScale;
+                currentScale.y *= -1; // Изменяем знак масштаба по оси Y
+                Sprite.GetComponent<SpriteRenderer>().transform.localScale = currentScale; // Применяем измененный масштаб
+
                 break;
         }
 
@@ -139,31 +135,14 @@ public class Movement : MonoBehaviour
         {
             portal.initiatePortal(this);
         }
-        else
-        {
-            // Получаем координаты позиции столкновения
-            Vector3 hitPosition = collision.transform.position;
-
-            // Получаем тайл на позиции столкновения
-            TileBase hitTile = tilemap.GetTile(tilemap.WorldToCell(hitPosition));
-
-            // Проверяем столкновение с целевым тайлом
-            if (hitTile == targetTile)
-            {
-                // Переносим игровой объект на начальные координаты
-                transform.position = initialPosition;
-            }
-        }
-
-
     }
 
-    //   private void OnCollisionEnter2D(Collision2D collision)
-    //   {
-    //       if (collision.gameObject.CompareTag("bas")) // Проверяем тег объекта
-    //       {
-    //           rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); // Применяем силу прыжка вверх
-    //       }
-    //   }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+      //  if (collision.gameObject.CompareTag("bas")) // Проверяем тег объекта
+        //{
+          //  rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); // Применяем силу прыжка вверх
+        //}
+    //}
 
 }

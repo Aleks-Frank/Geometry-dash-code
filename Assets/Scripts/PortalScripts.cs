@@ -13,4 +13,5 @@ public class PortalScripts : MonoBehaviour
     {
         movement.ChangeThoughPortal(Gamemode, Speed, gravity ? 1 : -1, State, transform.position.y);
     }
+
 }
